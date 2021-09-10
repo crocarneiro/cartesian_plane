@@ -1,6 +1,14 @@
 {
     "configurations": [
         {
+            "name": "Windows",
+            "includePath": [
+                "C:\\cygwin64\\usr\\include",
+                "\\include"
+            ],
+            "compilerPath": "C:\\cygwin64\\bin\\gcc.exe"
+        },
+        {
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",

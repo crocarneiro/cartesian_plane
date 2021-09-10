@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <process.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include "SDL2/SDL_ttf.h"
 #include "./constants.h"
 
 int program_is_running = false;
@@ -19,7 +20,7 @@ int initialize_window(void)
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
-		fprintf(stderr, "Error initialiazing SDL.\n");
+		fprintf(stderr, "Error initialiazing SDL: %s\n", SDL_GetError());
 		return false;
 	}
 
@@ -169,7 +170,7 @@ void destroy_window()
 	SDL_Quit();
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	program_is_running = initialize_window();
 

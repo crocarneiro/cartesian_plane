@@ -4,9 +4,8 @@
 #define PLANE_WIDTH 550
 #define PLANE_HEIGHT 550
 
-#define PLANE_X_POS 25
-#define PLANE_Y_POS 125
+#define PLANE_X_POS 125
+#define PLANE_Y_POS 25
 
 #define FPS 30
 #define FRAME_TARGET_TIME (1000 / FPS)
-

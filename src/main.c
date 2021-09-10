@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 #include "./constants.h"
@@ -8,6 +9,8 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
 int last_frame_time = 0;
+
+int scale = 10;
 
 int initialize_window(void)
 {
@@ -81,6 +84,32 @@ void render()
 	SDL_RenderClear(renderer);
 
 	SDL_SetRenderDrawColor(renderer, 194, 58, 135, 255);
+
+	// Horizontal line
+	int result = SDL_RenderDrawLine(renderer,
+		PLANE_X_POS,
+		PLANE_Y_POS,
+		PLANE_X_POS + PLANE_WIDTH,
+		PLANE_Y_POS
+	);
+	if(result < 0)
+	{
+		fprintf(stderr, "Error drawing line: %s.\n", SDL_GetError());
+		exit(1);
+	}
+
+	// Verticla line
+	result = SDL_RenderDrawLine(renderer,
+		PLANE_X_POS,
+		PLANE_Y_POS,
+		PLANE_X_POS,
+		PLANE_Y_POS + PLANE_HEIGHT
+	);
+	if(result < 0)
+	{
+		fprintf(stderr, "Error drawing line: %s.\n", SDL_GetError());
+		exit(1);
+	}
 
 	SDL_RenderPresent(renderer);
 }

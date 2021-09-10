@@ -11,6 +11,8 @@ SDL_Renderer *renderer = NULL;
 int last_frame_time = 0;
 
 int scale = 10;
+int origin_y = 0;
+int origin_x = 0;
 
 int initialize_window(void)
 {
@@ -77,6 +79,18 @@ void process_input()
 						fprintf(stdout, "Zoom in. Scale %d.\n", scale);
 					}
 					break;
+				case SDLK_UP:
+					origin_y -= 1;
+					break;
+				case SDLK_DOWN:
+					origin_y += 1;
+					break;
+				case SDLK_LEFT:
+					origin_x -= 1;
+					break;
+				case SDLK_RIGHT:
+					origin_x += 1;
+					break;
 			}
 
 			break;
@@ -107,10 +121,11 @@ void render()
 	int i, distance;
 	for(i = scale * (-1), distance = 0; i <= scale; i++, distance += PLANE_SIZE / (scale * 2))
 	{
-		if(i == 0)
+		if(i == origin_y)
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		else
 			SDL_SetRenderDrawColor(renderer, 194, 58, 135, 255);
+
 		// Horizontal line
 		int real_plane_size = (PLANE_SIZE / (scale * 2)) * scale * 2;
 		int result = SDL_RenderDrawLine(renderer,
@@ -125,6 +140,10 @@ void render()
 			exit(1);
 		}
 
+		if(i == origin_x)
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		else
+			SDL_SetRenderDrawColor(renderer, 194, 58, 135, 255);
 		// Vertical line
 		result = SDL_RenderDrawLine(renderer,
 			PLANE_X_POS + distance,

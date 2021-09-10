@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <process.h>
 #include <SDL2/SDL.h>
 #include "SDL2/SDL_ttf.h"
 #include "./constants.h"
@@ -82,16 +81,16 @@ void process_input()
 					}
 					break;
 				case SDLK_UP:
-					origin_y -= 1;
-					break;
-				case SDLK_DOWN:
 					origin_y += 1;
 					break;
+				case SDLK_DOWN:
+					origin_y -= 1;
+					break;
 				case SDLK_LEFT:
-					origin_x -= 1;
+					origin_x += 1;
 					break;
 				case SDLK_RIGHT:
-					origin_x += 1;
+					origin_x -= 1;
 					break;
 			}
 

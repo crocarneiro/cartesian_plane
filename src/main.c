@@ -104,11 +104,13 @@ void render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
-	SDL_SetRenderDrawColor(renderer, 194, 58, 135, 255);
-
 	int i, distance;
 	for(i = scale * (-1), distance = 0; i <= scale; i++, distance += PLANE_SIZE / (scale * 2))
 	{
+		if(i == 0)
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		else
+			SDL_SetRenderDrawColor(renderer, 194, 58, 135, 255);
 		// Horizontal line
 		int real_plane_size = (PLANE_SIZE / (scale * 2)) * scale * 2;
 		int result = SDL_RenderDrawLine(renderer,

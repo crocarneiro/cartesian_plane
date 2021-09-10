@@ -56,8 +56,29 @@ void process_input()
 			program_is_running = false;
 			break;
 		case SDL_KEYDOWN:
-			if(event.key.keysym.sym == SDLK_ESCAPE)
-				program_is_running = false;
+			switch(event.key.keysym.sym)
+			{
+				case SDLK_ESCAPE:
+					fprintf(stdout, "ESC pressed. Exiting...\n");
+					program_is_running = false;
+					break;
+				case SDLK_KP_PLUS:
+					scale += 1;
+					fprintf(stdout, "Zoom out. Scale %d.\n", scale);
+					break;
+				case SDLK_KP_MINUS:
+					if(scale == 1)
+					{
+						fprintf(stdout, "Scale is at its minimum. You cannot zoom in anymore. Scale %d.\n", scale);
+					}
+					else
+					{
+						scale -= 1;
+						fprintf(stdout, "Zoom in. Scale %d.\n", scale);
+					}
+					break;
+			}
+
 			break;
 	}
 }

@@ -85,30 +85,35 @@ void render()
 
 	SDL_SetRenderDrawColor(renderer, 194, 58, 135, 255);
 
-	// Horizontal line
-	int result = SDL_RenderDrawLine(renderer,
-		PLANE_X_POS,
-		PLANE_Y_POS,
-		PLANE_X_POS + PLANE_WIDTH,
-		PLANE_Y_POS
-	);
-	if(result < 0)
+	int i, distance;
+	for(i = scale * (-1), distance = 0; i <= scale; i++, distance += PLANE_SIZE / (scale * 2))
 	{
-		fprintf(stderr, "Error drawing line: %s.\n", SDL_GetError());
-		exit(1);
-	}
+		// Horizontal line
+		int real_plane_size = (PLANE_SIZE / (scale * 2)) * scale * 2;
+		int result = SDL_RenderDrawLine(renderer,
+			PLANE_X_POS,
+			PLANE_Y_POS + distance,
+			PLANE_X_POS + real_plane_size,
+			PLANE_Y_POS + distance
+		);
+		if(result < 0)
+		{
+			fprintf(stderr, "Error drawing line: %s.\n", SDL_GetError());
+			exit(1);
+		}
 
-	// Verticla line
-	result = SDL_RenderDrawLine(renderer,
-		PLANE_X_POS,
-		PLANE_Y_POS,
-		PLANE_X_POS,
-		PLANE_Y_POS + PLANE_HEIGHT
-	);
-	if(result < 0)
-	{
-		fprintf(stderr, "Error drawing line: %s.\n", SDL_GetError());
-		exit(1);
+		// Vertical line
+		result = SDL_RenderDrawLine(renderer,
+			PLANE_X_POS + distance,
+			PLANE_Y_POS,
+			PLANE_X_POS + distance,
+			PLANE_Y_POS + real_plane_size
+		);
+		if(result < 0)
+		{
+			fprintf(stderr, "Error drawing line: %s.\n", SDL_GetError());
+			exit(1);
+		}
 	}
 
 	SDL_RenderPresent(renderer);
